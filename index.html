@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>who? what? whuh? ZZZZZZZZZZzzzzzzzzzzzzzzz</title>
+
+    <style>
+      body {
+        color: white;
+      }
+
+      #main {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      #status {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div id="main">
+      <p id="score">Score: 0</p>
+      <button type="button" onclick="wakeUp()">Wake up and go outside to touch grass (500 score required)</button>
+    </div>
+
+    <h1 id="status">Click to sleep...</h1>
+
+    <script>
+      document.body.style.background = "black";
+      alert("u should turn ur volume down to prevent geting jumpscared")
+
+      let score = Number(localStorage.getItem("score") || 0);
+      let pr = document.getElementById("score");
+      let iAddScore;
+
+      let iSound;
+      const sounds = [
+        "mollyroselee-a-person-snoring-468533.mp3",
+        "audiopapkin-male-snoring-297875.mp3"
+      ]
+      let sound;
+      let s;
+
+      let cl = document.getElementById("status");
+      let clicked = false;
+
+      let opac_value = 0.01;
+      let iOpac;
+      let is_one = false;
+
+      let container = document.getElementById("main");
+
+      document.addEventListener("DOMContentLoaded", () => {
+        save();
+        pr.textContent = `Score: ${score}`
+      })
+
+      function save() {
+        localStorage.setItem("score", score);
+      }
+
+      function wakeUp() {
+
+        if (score < 500) {
+          alert("ZZZZZZZZZzzzzzzzzzzzz...")
+        } else {
+
+          main.innerHTML = "";
+
+          if (!iOpac) {
+            iOpac = setInterval(() => {
+
+            if (!is_one) {
+              opac_value += 0.01;
+              document.body.style.opacity = opac_value;
+            } else {
+              document.body.style.background = "#FFE900";
+              opac_value -= 0.01;
+              document.body.style.opacity = opac_value;
+            }
+
+            if (opac_value >= 1) {
+                is_one = true;
+              };
+
+          cl.textContent = "chillin'";
+          
+        }, 100);
+
+        }
+
+          setTimeout(() => {
+          alert("You woke up, got ready and went outside to touch grass.");
+          alert("The grass felt soft, fresh and amazing.");
+          alert("Maybe someone should touch it too.");
+          alert('that\'s probably u and me'); // yeah idk what did i decided to use '' instead of ""
+        }, 500);
+
+        }
+
+        score -= 999; // to prevent future replaying
+        save();
+      }
+
+      document.addEventListener("click", () => {
+        clicked = true;
+
+        cl.textContent = "";
+
+        if (!iAddScore && clicked) {
+        iAddScore = setInterval(() => {
+
+          score++;
+          pr.textContent = `Score: ${score}`;
+
+          save();
+
+        }, 1000);
+      }
+
+      if (!iSound && clicked) {
+        iSound = setInterval(() => {
+
+          sound = new Audio();
+          s = sounds[Math.floor(Math.random() * sounds.length)];
+          sound.src = s;
+
+          sound.play();
+          save();
+        }, 30000);
+      };
+
+    })
+    </script>
+  </body>
+</html>
